@@ -5,6 +5,7 @@ const todoAPI = axios.create({
 });
 const templates = {
   loginForm: document.querySelector('#login-form').content,
+  signForm: document.querySelector('#sign-up-form').content,
   todoContent: document.querySelector('#todo-content').content,
   todoItem: document.querySelector('#todo-item').content,
 }
@@ -43,6 +44,25 @@ async function loginPage() {
       password: e.target.elements.password.value,
     };
     const res = await todoAPI.post('/users/login', payload);
+    login(res.data.token);
+    todoContentPage();
+  });
+  fragment.querySelector('.login-form__register-btn').addEventListener('click', e => {
+    signUpPage();
+  });
+  render(fragment);
+}
+
+// 계정 등록 페이지
+async function signUpPage() {
+  const fragment = deepCopyTemplate(templates.signForm);
+  fragment.querySelector('.sign-up-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const payload = {
+      username: e.target.elements.username.value,
+      password: e.target.elements.password.value,
+    };
+    const res = await todoAPI.post('/users/register', payload);
     login(res.data.token);
     todoContentPage();
   });

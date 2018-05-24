@@ -37,6 +37,13 @@ button {
     @include title-style;
   }
 }
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    @include title-style;
+  }
+}
 .todo-content {
   padding: 1em;
   &-title {
