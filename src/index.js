@@ -46,7 +46,17 @@ async function todoContentPage() {
   const res = await todoAPI.get('/todos');
   res.data.forEach(todo => {
     const itemFragment = deepCopyTemplate(templates.todoItem);
+    const itemEl = itemFragment.querySelector('.todo-item');
     itemFragment.querySelector('.todo-item__body').textContent = todo.body;
+    itemFragment.querySelector('.todo-item__complete-btn').addEventListener('click', async e => {
+      e.preventDefault();
+      const res = await todoAPI.patch(`/todos/${todo.id}`, {'complete': true});
+    })
+    itemFragment.querySelector('.todo-item__delete-btn').addEventListener('click', async e => {
+      e.preventDefault();
+      const res = await todoAPI.delete(`/todos/${todo.id}`);
+      todoContentPage();
+    })
     fragment.querySelector('.todo-list').appendChild(itemFragment);
   });
   fragment.querySelector('.todo-form').addEventListener('submit', async e => {
