@@ -5,7 +5,6 @@ const todoAPI = axios.create({
 });
 const templates = {
   loginForm: document.querySelector('#login-form').content,
-  signForm: document.querySelector('#sign-up-form').content,
   todoContent: document.querySelector('#todo-content').content,
   todoItem: document.querySelector('#todo-item').content,
 }
@@ -34,50 +33,52 @@ function logout() {
   delete todoAPI.defaults.headers['Authorization'];
 }
 
-// 로그인 페이지
-async function loginPage() {
+// login, sign up 템플릿 같이 쓰려고 만든 함수
+async function usersPage(postURL, title, moveToBtnText, pageFunc) {
   const fragment = deepCopyTemplate(templates.loginForm);
+  fragment.querySelector('.login-form__title').textContent= title;
+  fragment.querySelector('.login-form__register-btn').textContent = moveToBtnText;
   fragment.querySelector('.login-form').addEventListener('submit', async e => {
     e.preventDefault();
     const payload = {
       username: e.target.elements.username.value,
       password: e.target.elements.password.value,
     };
-    const res = await todoAPI.post('/users/login', payload);
+    const res = await todoAPI.post(postURL, payload);
     login(res.data.token);
     todoContentPage();
   });
   fragment.querySelector('.login-form__register-btn').addEventListener('click', e => {
-    signUpPage();
+    e.preventDefault();
+    pageFunc();
   });
   render(fragment);
 }
 
+// 로그인 페이지
+async function loginPage() {
+  usersPage('/users/login', 'Login', 'Sign up', signUpPage);
+}
+
 // 계정 등록 페이지
 async function signUpPage() {
-  const fragment = deepCopyTemplate(templates.signForm);
-  fragment.querySelector('.sign-up-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const payload = {
-      username: e.target.elements.username.value,
-      password: e.target.elements.password.value,
-    };
-    const res = await todoAPI.post('/users/register', payload);
-    login(res.data.token);
-    todoContentPage();
-  });
-  render(fragment);
+  usersPage('/users/register', 'Sign up', 'Login', loginPage);
 }
 
 // 리스트 페이지
 async function todoContentPage() {
   const fragment = deepCopyTemplate(templates.todoContent);
   const res = await todoAPI.get('/todos');
-
+  
   // 리스트 생성
-  res.data.forEach(todo => {
-    todoContentItem(fragment, todo);
-  });
+  if(res.data == '') {
+    fragment.querySelector('.todo-content').classList.add('todo-content--empty');
+  } else {
+    fragment.querySelector('.todo-content').classList.remove('todo-content--empty');
+    res.data.forEach(todo => {
+      todoContentItem(fragment, todo);
+    });
+  }
 
   // 추가 버튼
   fragment.querySelector('.todo-form').addEventListener('submit', e => {

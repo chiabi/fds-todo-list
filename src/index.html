@@ -12,48 +12,29 @@
   
   <template id="login-form">
     <form class="login-form">
-      <h1 class="login-form__title">Login</h1>
-      <div>
-        <label for="loginUser">user name</label>
-        <input name="username" type="text" id="loginUser" class="login-form__user">
+      <h1 class="login-form__title"></h1>
+      <div class="login-form__input">
+        <input name="username" type="text" aria-label="user name" placeholder="user name" class="login-form__user" required>
+        <input name="password" type="password" aria-label="password" placeholder="password" sclass="login-form__password" required>
       </div>
-      <div>
-        <label for="loginPassword">password</label>
-        <input name="password" type="password" id="loginPassword" class="login-form__password">
-      </div>
-      <button class="login-form__submit-btn">Login</button>
-      <button class="login-form__register-btn">Sign Up</button>
+      <button class="login-form__submit-btn">Submit</button>
+      <button class="login-form__register-btn"></button>
     </form>
   </template>
-
-  <template id="sign-up-form">
-    <form class="sign-up-form">
-      <h1 class="sign-up-form__title">Sign Up</h1>
-      <div>
-        <label for="loginUser">user name</label>
-        <input name="username" type="text" id="loginUser" class="sign-up-form__user">
-      </div>
-      <div>
-        <label for="loginPassword">password</label>
-        <input name="password" type="password" id="loginPassword" class="sign-up-form__password">
-      </div>
-      <button class="sign-up-form__submit-btn">Sign Up</button>
-    </form>
-  </template>
-
   <template id="todo-content">
-    <h1 class="todo-content-title">TODO LIST</h1>
+    <h1 class="todo-content-title">ToDo List</h1>
     <div class="todo-content">
       <form class="todo-form">
-        <label for="todoFormBody">할일</label>
-        <input name="body" type="text" id="" class="todo-form__body" placeholder="할일을 입력해주세요">
+        <input name="body" type="text" aria-label="할일 입력" class="todo-form__body" placeholder="할일을 입력해주세요">
         <button class="todo-form__add-btn">추가</button>
       </form>
       <div class="todo-list"></div>
       <div class="todo-complete-list"></div>
-      <button class="todo-content__btn todo-content__complete-delete-btn">완료 전체 삭제</button>
-      <button class="todo-content__btn todo-content__delete-btn">전체 삭제</button>
-      <button class="todo-content__btn todo-content__logout-btn">로그아웃</button>
+      <div class="todo-content__btn">
+        <button class="todo-content__complete-delete-btn">완료 전체 삭제</button>
+        <button class="todo-content__delete-btn">전체 삭제</button>
+        <button class="todo-content__logout-btn">로그아웃</button>
+      </div>
     </div>
   </template>
 
