@@ -11,8 +11,8 @@
   <div class="root"></div>
   
   <template id="login-form">
-    <h1>Login</h1>
     <form class="login-form">
+      <h1 class="login-form__title">Login</h1>
       <div>
         <label for="loginUser">user name</label>
         <input name="username" type="text" id="loginUser" class="login-form__user">
@@ -26,14 +26,19 @@
   </template>
 
   <template id="todo-content">
-    <h1>TODO LIST</h1>
-    <form class="todo-form">
-      <label for="todoFormBody">할일</label>
-      <input name="body" type="text" id="" class="todo-form__body" placeholder="할일을 입력해주세요">
-      <button class="todo-form__add-btn">추가</button>
-    </form>
-    <div class="todo-list"></div>
-    <button class="todo-content__complete-delete-btn">완료 전체 삭제</button>
+    <h1 class="todo-content-title">TODO LIST</h1>
+    <div class="todo-content">
+      <form class="todo-form">
+        <label for="todoFormBody">할일</label>
+        <input name="body" type="text" id="" class="todo-form__body" placeholder="할일을 입력해주세요">
+        <button class="todo-form__add-btn">추가</button>
+      </form>
+      <div class="todo-list"></div>
+      <div class="todo-complete-list"></div>
+      <button class="todo-content__btn todo-content__complete-delete-btn">완료 전체 삭제</button>
+      <button class="todo-content__btn todo-content__delete-btn">전체 삭제</button>
+      <button class="todo-content__btn todo-content__logout-btn">로그아웃</button>
+    </div>
   </template>
 
   <template id="todo-item">
@@ -42,6 +47,10 @@
       <button class="todo-item__complete-btn">완료</button>
       <button class="todo-item__delete-btn">삭제</button>
     </div>
+  </template>
+
+  <template class="loading">
+    <div class="loading">Loading<span>.</span><span>.</span><span>.</span></div>
   </template>
   <script src="./index.js"></script>
 </body>

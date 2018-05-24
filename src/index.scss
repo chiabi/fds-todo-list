@@ -1,5 +1,90 @@
-$main-color: skyblue;
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|Poor+Story');
 
+$main-color: #882D60;
+$font-color: #343434;
+$font-stack: 'Poor Story', cursive;
+// font-family: 'Do Hyeon', sans-serif;
+// font-family: 'Poor Story', cursive;
+@mixin title-style {
+  padding: 0.5em 0;
+  margin: 0 0 1em;
+  background-color: darken($main-color, 20%);
+  color: #fff;
+  // font-weight: normal;
+  text-align: center;
+}
 body {
   background-color: $main-color;
+  font-family: $font-stack;
+  color: $font-color;
+}
+button {
+  font-family: $font-stack;
+  border-width: 0;
+  background-color: transparent;
+}
+
+.root {
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    @include title-style;
+  }
+}
+.todo-content {
+  padding: 1em;
+  &-title {
+    @include title-style;
+  }
+  &__btn {
+    color: #fff;
+    padding: 0.5em 0.8em;
+    font-size: 1.1em;
+  }
+  &__complete-delete-btn {
+    background-color: darken($main-color, 15%);
+  }
+  &__delete-btn {
+    background-color: lighten($main-color, 5%);
+  }
+  &__logout-btn {
+    background-color: lighten($main-color, 25%);
+  }
+
+}
+.todo-item {
+  display: flex;
+  border-top: 1px solid rgba($font-color, 0.2);
+  &__body {
+    font-size: 1.5em;
+    .todo-item--complete & {
+      position: relative;
+      opacity: 0.5;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: $font-color;
+        z-index: 1;
+      }
+    }
+  }
+  &__delete-btn {
+    align-items: flex-end;
+  }
+  &__complete-btn {
+    align-items: flex-end;
+    .todo-item--complete & {
+      display: none;
+    }
+  }
 }
