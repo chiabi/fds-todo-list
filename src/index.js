@@ -7,6 +7,7 @@ const templates = {
   loginForm: document.querySelector('#login-form').content,
   todoContent: document.querySelector('#todo-content').content,
   todoItem: document.querySelector('#todo-item').content,
+  loading: document.querySelector('#loading').content,
 }
 const rootEl = document.querySelector('.root');
 
@@ -33,8 +34,18 @@ function logout() {
   delete todoAPI.defaults.headers['Authorization'];
 }
 
+// 로딩
+async function loadingPage(parentEl) {
+  const fragment = deepCopyTemplate(templates.loading);
+  const parentElChildrenCopy = parentEl.cloneNode(true);
+  parentEl.textContent = '';
+  parentEl.appendChild(fragment);
+  return parentElChildrenCopy;
+}
+
 // login, sign up 템플릿 같이 쓰려고 만든 함수
 async function usersPage(postURL, title, moveToBtnText, pageFunc) {
+  loadingPage(rootEl);
   const fragment = deepCopyTemplate(templates.loginForm);
   fragment.querySelector('.login-form__title').textContent= title;
   fragment.querySelector('.login-form__register-btn').textContent = moveToBtnText;
@@ -44,6 +55,7 @@ async function usersPage(postURL, title, moveToBtnText, pageFunc) {
       username: e.target.elements.username.value,
       password: e.target.elements.password.value,
     };
+    const backupChildren = loadingPage(document.querySelector('.login-form__submit-btn'));
     const res = await todoAPI.post(postURL, payload);
     login(res.data.token);
     todoContentPage();

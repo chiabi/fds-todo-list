@@ -220,3 +220,19 @@ button {
     }
   }
 }
+
+.loading {
+  text-align: center;
+  img {
+    width: 50px;
+    display: inline-block;
+    background: white;
+    padding: 0.01em;
+    border-radius: 100%;
+  }
+  .login-form__submit-btn & {
+    img {
+      margin: -0.8em;
+    }
+  }
+}
